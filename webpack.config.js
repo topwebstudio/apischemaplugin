@@ -37,13 +37,7 @@ config.watchOptions = {
 
 config.module = {
    plugins: [
-        new CKEditorWebpackPlugin( {
-       
-            language: 'en',
- 
-            additionalLanguages: 'all',
-
-        } )
+     
     ],
     
     loaders: [

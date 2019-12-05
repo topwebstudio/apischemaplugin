@@ -78,7 +78,6 @@ class IpnController extends Controller {
         if (in_array($data['event'], ['refund', 'subscription-cancelled', 'subscription-trial-end', 'subscription-payment-failed'])) {
             $purchase->setIsActivePurchase(false);
         } else {
-
             $verified = false;
             if ($ipnService->isValidIpn($data, $product->getCampaign()->getSecretKey())) {
                 $key = is_array($data['licenses']) ? $data['licenses'][0] : $data['licenses'];
