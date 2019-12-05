@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^16.0.0",
+    "@ckeditor/ckeditor5-dev-webpack-plugin": "^16.0.0",
     "ace-builds": "^1.4.7",
     "blueimp-file-upload": "^9.30.0",
     "bootstrap": "^4.3.1",

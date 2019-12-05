@@ -56,4 +56,4 @@ config.module = {
 module.exports = config;
  
  
- const CKEditorWebpackPlugin = require( '@ckeditor/ckeditor5-dev-webpack-plugin' );
+ const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');

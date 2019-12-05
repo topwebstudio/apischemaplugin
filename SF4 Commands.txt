@@ -1,3 +1,7 @@
+npm install --save-dev webpack
+
+
+
 php bin/console doctrine:schema:drop --force && php bin/console doctrine:schema:create && php bin/console doctrine:fixtures:load  
 
 php bin/console fos:js-routing:dump --format=json --target=assets/js/lib/fos_js_routes.json
