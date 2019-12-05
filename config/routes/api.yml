@@ -1,0 +1,56 @@
+api_update_license_data:
+    path:     /api/update_license_data
+    controller: App\Controller\ApiController::updateLicenseDataAction
+    methods:  GET
+
+api_validate_key:
+    path:     /api/validate_api_key
+    controller: App\Controller\ApiController::validateApiKeyAction
+    methods:  GET
+
+api_get_latest_plugin_version:
+    path:     /api/get_latest_plugin_version
+    controller: App\Controller\ApiController::getLatestPluginVersionAction
+    methods:  GET 
+
+api_download:
+    path:     /api/download/{version}
+    controller: App\Controller\ApiController::downloadAction
+    methods:  GET 
+
+api_download_page:
+    path:     /api/download-plugin
+    controller: App\Controller\ApiController::downloadPluginAction 
+    methods:  GET  
+
+downloadZipDemo:
+    path:     /downloadZipDemo
+    controller: App\Controller\ApiController::downloadZipDemoAction 
+    methods:  GET
+    
+#SCHEMA
+    
+api_browse_schema:
+    path:     /api/schema/browse
+    controller: App\Controller\SchemaBuilderApiController::browseAction 
+    methods:  POST  
+
+api_submit_schema:
+    path:     /api/schema/submit
+    controller: App\Controller\SchemaBuilderApiController::submitAction 
+    methods:  POST  
+
+api_schema_register:
+    path:     /api/schema/api-register
+    controller: App\Controller\SchemaBuilderApiController::registerAction 
+    methods:  POST      
+    
+api_schema_login:
+    path:     /api/schema/api-login
+    controller: App\Controller\SchemaBuilderApiController::loginAction 
+    methods:  POST      
+    
+api_schema_profile_update:
+    path:     /api/schema/api-save-profile
+    controller: App\Controller\SchemaBuilderApiController::saveProfileAction 
+    methods:  POST      

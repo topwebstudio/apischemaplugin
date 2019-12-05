@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"> Product</h4>
+            </div>
+            <div class="card-body">
+               {% include 'product/form.html.twig' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

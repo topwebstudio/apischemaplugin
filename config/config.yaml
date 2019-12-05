@@ -1,0 +1,42 @@
+parameters:
+    knp_menu.renderer.twig.options:
+        currentClass: active
+    router.request_context.host: schemaplugin.net
+    router.request_context.scheme: https
+    api:
+        plugin_name: WP Schema Plugin
+        business_homepage: https://wpschemaplugin.com/
+        business_name: WP Schema Plugin
+        plugin_min_wp_version: 5.3
+        plugin_banner_low: http://w-shadow.com/files/external-update-example/assets/banner-772x250.png
+        plugin_banner_high: http://w-shadow.com/files/external-update-example/assets/banner-1544x500.png
+    upload_directory: "%kernel.root_dir%/../uploads"
+       
+
+knp_menu:
+    twig: 
+        template: blocks/menu.html.twig
+        
+knp_paginator:
+    template:
+        pagination: blocks/pagination.html.twig  
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: App\Entity\User
+    from_email: {address: "fosub@localhost", sender_name: FOSUB}
+    use_flash_notifications: false
+#    registration:
+#       form:
+#           type: App\Form\RegistrationType
+
+stof_doctrine_extensions:
+    default_locale: en_US
+    orm:
+        default:
+            timestampable: true
+            sluggable: true
+
+framework:
+    templating: { engines: [twig] }

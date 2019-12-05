@@ -1,0 +1,15 @@
+setting_index:
+    path:     /admin/setting/{page}
+    controller: App\Controller\SettingController::indexAction 
+    methods:  GET
+    requirements:
+        page: '\d+'
+    defaults:
+        page: 1
+
+
+setting_edit:
+    path:     /admin/setting/{id}/edit
+    controller: App\Controller\SettingController::editAction
+    methods:  [GET, POST]
+

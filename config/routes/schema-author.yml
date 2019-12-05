@@ -1,0 +1,8 @@
+schemaauthor_index:
+    path:     /admin/schema-author/{page}
+    controller: App\Controller\SchemaAuthorController::indexAction
+    methods:  GET
+    requirements:
+        page: '\d+'
+    defaults:
+        page: 1

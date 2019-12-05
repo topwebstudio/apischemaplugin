@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">JSON Schema Catalog</h4>
+            </div>
+            <div class="card-body table-full-width table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Author</th>
+                            <th>Published</th>
+                            <th>Featured</th>
+                            <th>Date</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for schemaBuilder in schemaBuilders %}
+                            <tr>
+                                <td>{{ schemaBuilder.id }}</td>
+                                <td>{{ schemaBuilder.title }}</td>
+                                <td>{{ schemaBuilder.content | raw }}</td>
+                                <td>{{ schemaBuilder.author.name | default }}, {{ schemaBuilder.author.email | default }}</td> 
+
+                                <td>{% if schemaBuilder.published %}Yes{% else %}No{% endif %}</td>
+                                <td>{% if schemaBuilder.featured %}Yes{% else %}No{% endif %}</td>
+                                <td style="white-space: nowrap" title="{{ schemaBuilder.date|date('Y-m-d H:i:s') }}">{{ schemaBuilder.date | ago }}</td>
+                                <td>
+                                    <a href="{{ path('schemabuilder_edit', { 'id': schemaBuilder.id }) }}">edit</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table> 
+            </div>    
+
+            {{ knp_pagination_render(schemaBuilders) }}    
+        </div>   
+        <a class="btn btn-round btn-fill btn-info" href="{{ path('schemabuilder_new') }}">New Schema</a>
+    </div>   
+
+
+{% endblock %}

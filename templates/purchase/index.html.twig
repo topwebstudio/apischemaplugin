@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <input type="hidden" id="jvzoopurchases" />
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">  Purchases ({{ purchases.getTotalItemCount() }})
+
+                    {#<input class="searchbox" title="Search in Purchases by Purchase ID" type="text" 
+                             data-url="{{ url('purchase_search') }}" id="searchJVzooPurchase" 
+                             placeholder="Search Purchases" name="q" autocomplete="off"> 
+                    #}
+                </h4>
+            </div>
+            <div class="card-body table-full-width table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product</th>
+                            <th>Campaign</th>
+                            <th>Transaction #</th>
+                            <th>API KEYS</th>
+                            <th>Order Status </th>
+                            <th>Domains </th>
+                            <th>Enabled</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for purchase in purchases %}
+
+                            <tr {% if purchase.isActive == false %} class="inactive" {% endif %} data-id="{{ purchase.id }}">
+                                <td> {{ purchase.id }}</td>
+                                <td> {{ purchase.product.productName }} 
+                                    <div>
+                                        <small> {{ purchase.date | date }} </small>
+                                    </div>
+                                    <div>
+                                         <small> {{ purchase.buyerFirstName }} {{ purchase.buyerLastName }} </small>
+                                    </div>
+                                </td>
+
+
+
+                                <td>
+                                    <span title="Campaign #{{ purchase.product.campaign.campaignId }}">{{ purchase.product.campaign.campaignName }} </span>
+                                </td> 
+                                <td>
+                                    {{ purchase.transactionId }} 
+                                </td>
+                                <td>{{ purchase.licenses }}</td>
+                                <td> {% if purchase.isActivePurchase == true %} Active {% else %} Inactive {% endif %}  </td>
+                                <td> {{ purchase.domains | length }} </td>
+                                <td>
+                                    <div class="toggles enableDisableKey">
+                                        <input  type="checkbox" name="checkbox{{ purchase.id }}" id="checkbox{{ purchase.id }}" class="ios-toggle"
+                                                {% if (purchase.enabled) == "1" %} checked {% endif %}
+                                                />
+                                        <label for="checkbox{{ purchase.id }}" class="checkbox-label" data-off="off" data-on="on"></label>
+                                    </div>
+                                </td>
+                            </tr>   
+                        {% endfor %}
+                    </tbody>
+                </table> 
+            </div>    
+            {{ knp_pagination_render(purchases) }}    
+        </div>   
+    </div>
+{% endblock %}

@@ -1,0 +1,52 @@
+php bin/console doctrine:schema:drop --force && php bin/console doctrine:schema:create && php bin/console doctrine:fixtures:load  
+
+php bin/console fos:js-routing:dump --format=json --target=assets/js/lib/fos_js_routes.json
+
+./node_modules/.bin/encore dev --watch --watch-poll  
+
+
+~~~~~installations
+
+npm update npm -g
+
+npm install @symfony/webpack-encore --save-dev 
+npm install jquery --save
+npm install dom-factory --save
+npm install moment --save
+npm install ckeditor --save
+npm install popper.js --save
+npm install ckeditor_loader --save
+npm install boostrap --save
+npm install -g --save-dev javascript-obfuscator
+npm install clipboard --save
+npm install 
+
+npm install https://github.com/topwebstudio/ckeditor_loader.git  --save
+
+
+npm install git+ssh://git@github.com:topwebstudio/ckeditor_loader.git
+npm install git+ssh://git@github.com:<githubname>/<githubrepo.git>[#semver:^x.x]
+npm install git+https://git@github.com/<githubname>/<githubrepo.git>
+npm install git://github.com/<githubname>/<githubrepo.git>
+npm install github:<githubname>/<githubrepo>[#<commit-ish>]
+
+####
+ 
+cd node_modules/ckeditor_loader 
+npm install
+
+~~~~~installations
+
+./node_modules/.bin/encore dev --watch --watch-poll  
+
+./node_modules/.bin/webpack-dev-server
+
+
+"ckeditor_loader": "git+ssh://git@github.com:topwebstudio/ckeditor_loader.git"
+
+git+ssh://git@github.com:topwebstudio/ckeditor_loader.git
+
+~~~~~~ INSTALL SSH KEY SO GITHUB DOESNT REQUOIRE PASSWORD
+ssh-keygen -t rsa -b 4096 -C "contact@topwebstudio.com"
+ssh-add ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub

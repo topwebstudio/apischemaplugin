@@ -1,0 +1,23 @@
+campaign_index:
+    path:     /admin/campaign/{page}
+    controller: App\Controller\CampaignController::indexAction
+    methods:  GET
+    requirements:
+        page: '\d+'
+    defaults:
+        page: 1
+
+campaign_new:
+    path:     /admin/campaign/new
+    controller: App\Controller\CampaignController::newAction
+    methods:  [GET, POST]
+
+campaign_edit:
+    path:     /admin/campaign/{id}/edit
+    controller: App\Controller\CampaignController::editAction
+    methods:  [GET, POST]
+
+campaign_delete:
+    path:     /admin/campaign/{id}/delete
+    controller: App\Controller\CampaignController::deleteAction
+    methods:  GET

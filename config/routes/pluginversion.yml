@@ -1,0 +1,23 @@
+plugin-version_index:
+    path:     /admin/plugin-version/{page}
+    controller: App\Controller\PluginVersionController::indexAction 
+    methods:  GET
+    requirements:
+        page: '\d+'
+    defaults:
+        page: 1
+        
+plugin-version_new:
+    path:     /admin/plugin-version/new
+    controller: App\Controller\PluginVersionController::newAction
+    methods:  [GET, POST]
+
+plugin-version_edit:
+    path:     /admin/plugin-version/{id}/edit
+    controller: App\Controller\PluginVersionController::editAction
+    methods:  [GET, POST]
+
+plugin-version_delete:
+    path:     /admin/plugin-version/{id}/delete
+    controller: App\Controller\PluginVersionController::deleteAction
+    methods:  GET

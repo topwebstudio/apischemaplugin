@@ -1,0 +1,23 @@
+product_index:
+    path:     /admin/product/{page}
+    controller: App\Controller\ProductController::indexAction
+    methods:  GET
+    requirements:
+        page: '\d+'
+    defaults:
+        page: 1
+
+product_new:
+    path:     /admin/product/new
+    controller: App\Controller\ProductController::newAction
+    methods:  [GET, POST]
+
+product_edit:
+    path:     /admin/product/{id}/edit
+    controller: App\Controller\ProductController::editAction
+    methods:  [GET, POST]
+
+product_delete:
+    path:     /admin/product/{id}/delete
+    controller: App\Controller\ProductController::deleteAction
+    methods:  GET

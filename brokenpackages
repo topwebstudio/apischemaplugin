@@ -1,0 +1,6 @@
+Broken packages in symfony5.
+
+"stof/doctrine-extensions-bundle": "*",
+"knplabs/knp-time-bundle": "*",
+"friendsofsymfony/user-bundle": "*",
+"liip/imagine-bundle": "*",

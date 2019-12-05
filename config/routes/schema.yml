@@ -1,0 +1,38 @@
+schemabuilder_index:
+    path:     /admin/schema/{page}
+    controller: App\Controller\SchemaBuilderController::indexAction
+    methods:  GET
+    requirements:
+        page: '\d+'
+    defaults:
+        page: 1
+
+ 
+schemabuilder_new:
+    path:     /admin/schema/new
+    controller: App\Controller\SchemaBuilderController::newAction
+    methods:  [GET, POST]
+
+schemabuilder_edit:
+    path:     /admin/schema/{id}/edit
+    controller: App\Controller\SchemaBuilderController::editAction
+    methods:  [GET, POST]
+
+schemabuilder_delete:
+    path:     /admin/schema/{id}/delete
+    controller: App\Controller\SchemaBuilderController::deleteAction
+    methods:  GET  
+
+schemabuilder_update_json:
+    path:     /admin/schema/update-json
+    controller: App\Controller\SchemaBuilderController::updateJsonAction
+    methods:  POST  
+
+
+schemabuilder_delete_json:
+    path:     /admin/schema/delete-json
+    controller: App\Controller\SchemaBuilderController::deleteJsonAction
+    methods:  POST  
+
+
+

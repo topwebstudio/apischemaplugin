@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/png" href="/assets/img/favicon.ico">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+        <title>{% block title %} API Admin{% endblock %}</title>
+
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+        <meta name="viewport" content="width=device-width" />
+
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+
+         <link rel="stylesheet" href="{{ asset('assets/build/admin.css') }}">
+
+    </head>
+    <body>
+
+        <div class="wrapper">
+            <div class="sidebar" data-color="purple" data-image="/assets/img/sidebar-5.jpg" />
+            <div class="sidebar-wrapper">
+                <div class="logo">
+                     API ADMIN
+                </div>
+                {{ knp_menu_render('menu') }}
+            </div>
+        </div>
+
+        <div class="main-panel">
+            <nav class="navbar navbar-default navbar-fixed">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                    </div>
+
+
+
+                </div>
+            </nav>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>You are about to delete this item, this procedure is irreversible.</p>
+                <p>Do you want to proceed?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a id="deleteButton" class="btn btn-danger btn-ok">Delete</a>   
+            </div>
+        </div>
+    </div>
+</div>                
+
+
+
+<div class="modal fade" id="confirm-disable-domain" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Confirm Disable Domain</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>You are about to disable this domain.</p>
+                <p>This function will only disable the given domain, the rest of the domains (if any) used by the same API KEY will not be affected</p>
+                <p>The plugin will be "shut down" immediately on the given domain</p>
+                <p>Do you want to proceed?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a id="disableDomain" class="btn btn-danger btn-ok">Disable</a>   
+            </div>
+        </div>
+    </div>
+</div>               
+
+<div class="modal fade" id="confirm-enable-domain" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Confirm Enable Domain</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>You are about to enable this domain.</p>
+                <p>Do you want to proceed?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a id="enableDomain" class="btn btn-ok">Enable</a>   
+            </div>
+        </div>
+    </div>
+</div>    
+
+
+<div class="modal fade" id="confirm-disable-key" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Confirm Disable API KEY</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>You are about to disable the API KEY.</p>
+                <p>Disable API KEY only means that the domain will remain active for a while (up to 48h) but typically will be less than 24h </p>
+                <p>Disable API KEY and all Domains means that every domain on record will be switched off right away </p>
+                <p>Do you want to proceed?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a data-domains="false" class="btn disableApiKey btn-danger btn-ok">Disable API KEY only</a>   
+                <a data-domains="true" class="btn disableApiKey btn-danger btn-ok">Disable API KEY and all Domains</a>   
+            </div>
+        </div>
+    </div>
+</div>               
+
+<div class="modal fade" id="confirm-enable-key" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Confirm Enable API KEY</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>You are about to enable this API KEY.</p>
+                <p>Do you want to proceed?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a id="enableApiKey" class="btn btn-ok">Enable API KEY and all Domains</a>   
+            </div>
+        </div>
+    </div>
+</div>    
+
+
+<div class="modal fade" id="confirm-delete-domain" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Confirm Delete Domain</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>You are about to delete the domain. This operation is only needed when existing website must be used with new API KEY.
+                    After the domain is deleted the client can use new valid API KEY to activate the domain once again, so this operation should not be used
+                    to penalize a domain from being used (use switch off feature for that). <br />
+
+                </p>
+                <p>Do you want to proceed?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a id="deleteDomain" class="btn btn-danger">Delete the Domain</a>   
+            </div>
+        </div>
+    </div>
+</div>                 
+
+
+   <script type="text/javascript" src="{{ asset('assets/build/admin.js') }}"></script>
+ 
+</body>
+</html>

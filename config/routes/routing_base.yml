@@ -1,0 +1,7 @@
+homepage:
+    path:     /
+    controller: App\Controller\DefaultController::homepageAction
+
+admin_homepage:
+    path:     /admin
+    controller: App\Controller\DefaultController::adminHomepageAction

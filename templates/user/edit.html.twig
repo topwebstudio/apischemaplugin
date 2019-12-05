@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Edit Profile</h4>
+            </div>
+            <div class="card-body">
+                {{ form_start(form, { 'action': path('user_update') }) }}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            {{ form_label(form.username) }}
+                            {{ form_widget(form.username, {'attr': {'placeholder': 'Username', 'class':'form-control'}}) }}
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            {{ form_label(form.name) }}
+                            {{ form_widget(form.name, {'attr': {'placeholder': 'Name', 'class':'form-control'}}) }}
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form_label(form.email) }}
+                            {{ form_widget(form.email, {'attr': {'placeholder': 'Email', 'class':'form-control'}}) }}
+                        </div>
+                    </div>
+
+                </div>
+
+                {{ form_rest(form) }}
+                <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                <div class="clearfix"></div>
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

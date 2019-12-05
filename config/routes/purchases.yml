@@ -1,0 +1,30 @@
+purchase_index:
+    path:     /admin/purchases/{page}
+    controller: App\Controller\PurchaseController::indexAction
+    methods:  GET
+    requirements:
+        page: '\d+'
+    defaults:
+        page: 1
+  
+enable_disable_apikey:
+    path:     /admin/purchases/enable-disable-api-key/{id}/{action}/{domains}
+    controller: App\Controller\PurchaseController::enableDisableAction
+    methods:  POST
+    requirements:
+        id: '\d+' 
+        domains: true|false
+        action: 1|0
+    options: 
+        expose: true
+    defaults:
+        page: 1
+#
+#purchase_index:
+#    path:     /admin/purchases/{page}
+#    controller: App\Controller\PurchaseController::indexAction
+#    methods:  GET
+#    requirements:
+#        page: '\d+' 
+#    defaults:
+#        page: 1

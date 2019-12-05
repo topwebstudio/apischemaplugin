@@ -1,0 +1,32 @@
+domain_index:
+    path:     /admin/domains/{page}
+    controller: App\Controller\DomainController::indexAction
+    methods:  GET
+    requirements:
+        page: '\d+'
+    defaults:
+        page: 1
+
+domain_search:
+    path:     /admin/domains/domain-search
+    controller: App\Controller\DomainController::searchAction
+    methods:  GET
+
+enable_disable_domain:
+    path:     /admin/domains/enable-disable-domain/{id}/{action}
+    controller: App\Controller\DomainController::enableDisableAction
+    methods:  POST
+    options:
+        expose: true
+    requirements:
+        id: '\d+'
+        action: 0|1
+ 
+delete_domain:
+    path:     /admin/domains/delete-domain/{id}
+    controller: App\Controller\DomainController::deleteAction
+    methods:  POST
+    options:
+        expose: true
+    requirements:
+        id: '\d+'

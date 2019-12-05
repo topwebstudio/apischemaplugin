@@ -1,0 +1,44 @@
+<input type="hidden" value="{{ country.slug | default }}" id="chosenCountrySlug" />
+
+<div class="collapse navbar-collapse">
+    <ul class="nav navbar-nav navbar-left">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                <i class="fa fa-globe"></i> {% if country %} {{ country.name }} {% else %}All Countries {% endif %}
+                <b class="caret hidden-sm hidden-xs"></b>
+            </a>
+            <ul id="userLocations" class="dropdown-menu">
+                <li><a href="{{ path('user_save_location') }}">All Countries</a></li>
+                    {% for _country in countries %}
+                    <li><a href="{{ path('user_save_location', {'id': _country.id }) }}">{{ _country.name }}</a></li>
+                    {% endfor %}
+            </ul>
+        </li>
+    </ul>
+
+    <div class="col-sm-4 col-md-4">
+        <input type="text" data-url="{{ path('location_search') }}" id="searchLocation" placeholder="Search Location{% if app.user.country %} in {{ country_name() }} {% endif %} " name="q">
+    </div>
+
+
+    <ul class="nav navbar-nav navbar-right">
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <p>
+                    {{ app.user.name }}
+                    <b class="caret"></b>
+                </p>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('user_edit') }}">Edit Profile</a></li>
+                <li><a href="{{ path('fos_user_change_password') }}">Change Password</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+            </ul>
+        </li> 
+
+        <li class="separator hidden-lg hidden-md"></li>
+    </ul>
+</div>
+

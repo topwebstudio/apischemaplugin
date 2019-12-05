@@ -1,0 +1,15 @@
+user_edit:
+    path:  /admin/user/edit
+    controller: App\Controller\UserController::editAction
+    methods:  [GET]
+
+user_update:
+    path:  /admin/user/update
+    controller: App\Controller\UserController::updateAction
+    methods:  [GET, POST]
+
+fos_user_change_password:
+    path: /admin/user/password
+    controller: App\Controller\UserController::changePasswordAction
+    methods:  [GET, POST]
+ 

@@ -1,0 +1,104 @@
+.pagination{    height: 36px;
+                margin: 0 20px 20px 20px;
+                padding: 0;}
+
+.pagination ul{padding:0;display:inline-block;*display:inline;margin-bottom:0;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
+.pagination li{display:inline}
+.pagination a{float:left;padding:0 12px;line-height:30px;text-decoration:none;border:1px solid #ddd;border-left-width:0}
+.pagination .active a,.pagination a:hover{background-color:#f5f5f5;color:#94999E}
+.pagination .active a{color:#94999E;cursor:default}
+.pagination .disabled a,.pagination .disabled a:hover,.pagination .disabled span{color:#94999E;background-color:transparent;cursor:default}
+.pagination li:first-child a,.pagination li:first-child span{border-left-width:1px;-webkit-border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px;border-radius:3px 0 0 3px}
+.pagination li:last-child a{-webkit-border-radius:0 3px 3px 0;-moz-border-radius:0 3px 3px 0;border-radius:0 3px 3px 0}
+.pagination-centered{text-align:center}
+.pagination-right{text-align:right}
+.pager{margin-bottom:18px;text-align:center}
+.pager:after,.pager:before{display:table;content:""}
+.pager li{display:inline}
+.pager a{display:inline-block;padding:5px 12px;background-color:#fff;border:1px solid #ddd;-webkit-border-radius:15px;-moz-border-radius:15px;border-radius:15px}
+.pager a:hover{text-decoration:none;background-color:#f5f5f5}
+.pager .next a{float:right}
+.pager .previous a{float:left}
+.pager .disabled a,.pager .disabled a:hover{color:#999;background-color:#fff;cursor:default}
+.pagination .prev.disabled span{float:left;padding:0 12px;line-height:30px;text-decoration:none;border:1px solid #ddd;border-left-width:1}
+.pagination .next.disabled span{float:left;padding:0 12px;line-height:30px;text-decoration:none;border:1px solid #ddd;border-left-width:0}
+.pagination li.active, .pagination li.disabled {
+    float:left;padding:0 12px;line-height:30px;text-decoration:none;border:1px solid #ddd;border-left-width:0
+}
+.pagination li.active {
+    background: #364E63;
+    color: #fff;
+}
+.pagination li:first-child {
+    border-left-width: 1px;
+}
+
+.pagination li.active {
+    background: #f9f9f9 !important;
+    color: #CCC !important;
+}
+
+.searchbox {
+    float: right;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555;
+    vertical-align: middle;
+    background-color: #fff;
+
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    min-width: 300px;
+}
+
+.table-striped > tbody > tr.inactive {
+    background-color: #fff7f7;
+}
+
+.inactive a {
+    color: #ef1d1d;
+}
+
+.licensedWebsite input {
+    width: 80px;
+}
+.container-fluid {
+    padding: 0 !important;
+}
+
+.licensedWebsite {
+    cursor: pointer;
+}
+
+.deleteDomain {
+    cursor: pointer;
+    color: red;
+}
+input[type=checkbox] {
+    float: left;
+    width: 17px;
+    height: 15px;
+    margin-right: 6px;
+}
+
+.card label {
+
+    margin: 0 10px;
+}
+ 
+.divdone {
+    padding: 10px 0;
+}
+
+ 
+.ace_editor *, .ace_editor *:before, .ace_editor *:after {
+     font-family : monospace !important;
+}
+  
+
