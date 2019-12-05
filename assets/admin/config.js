@@ -20,6 +20,7 @@ import 'jquery-ui/themes/base/autocomplete.css';
 
 //require('@ckeditor/ckeditor5-build-classic');
 
- import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
  
  window.ClassicEditor=ClassicEditor;

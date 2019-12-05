@@ -34,26 +34,32 @@ const path = require('path');
 config.watchOptions = {
     poll: true
 };
-
-config.module = {
-   plugins: [
-     
-    ],
-    
-    loaders: [
-      {
-        loader: 'ckeditor5',
-        query: {
-          path: '/lib/ckeditor5'
-       
-        }
-      }
-    ]
- 
-  
-};
+//
+//config.module = {
+//   plugins: [
+//        new CKEditorWebpackPlugin( {
+//       
+//            language: 'en',
+// 
+//            additionalLanguages: 'all',
+//
+//        } )
+//    ],
+//    
+//    loaders: [
+//      {
+//        loader: 'ckeditor5',
+//        query: {
+//          path: '/lib/ckeditor5'
+//       
+//        }
+//      }
+//    ]
+// 
+//  
+//};
 
 module.exports = config;
  
- 
- const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
+// 
+// const CKEditorWebpackPlugin = require( '@ckeditor/ckeditor5-dev-webpack-plugin' );
