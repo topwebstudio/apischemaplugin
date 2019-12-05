@@ -3,6 +3,7 @@
 namespace App\Twig;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 class Extensions extends \Twig_Extension {
 
@@ -11,11 +12,8 @@ class Extensions extends \Twig_Extension {
     public $settings = [];
     public $templates = [];
 
-    public function __construct(
-           // \Doctrine\ORM\EntityManager $em, 
-            
-            ContainerInterface $container) {
-//        $this->em = $em;
+    public function __construct(ContainerInterface $container, EntityManagerInterface $em) {
+        $this->em = $em;
         $this->container = $container;
     }
 
@@ -30,13 +28,12 @@ class Extensions extends \Twig_Extension {
     public function getFunctions() {
         return array(
             new \Twig_SimpleFunction('yesno', array($this, 'yesno')),
-            new \Twig_SimpleFunction('active_purchase', array($this, 'active_purchase')),
             new \Twig_SimpleFunction('jsonEncode', array($this, 'jsonEncode')),
+            new \Twig_SimpleFunction('setting', array($this, 'setting')),
         );
     }
 
     public function jsonEncode($array) {
-
         return json_encode($array, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
@@ -48,8 +45,8 @@ class Extensions extends \Twig_Extension {
         return "No";
     }
 
-    public function active_purchase($key) {
-        return $this->container->get('customer_api')->isPurchaseActive($key);
+    public function setting($key) {
+        return $this->container->get('helpers')->getSetting($key);
     }
 
 }

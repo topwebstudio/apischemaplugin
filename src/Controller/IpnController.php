@@ -11,13 +11,23 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class IpnController extends Controller {
 
-    public function ipnAction(IPN $ipnService, Helpers $helpers, Request $request) {
+    public function ipnAction(IPN $ipnService, Helpers $helpers, Request $request, $apiKey) {
+
         if ($request->getMethod() !== 'POST') {
-            exit("We expect POST method");
+            throw new NotFoundHttpException("We expect POST method");
         }
 
         $data = $request->request->all();
         $em = $this->getEntityManager();
+
+
+        if (!$data || !isset($data['invoice_id']) || !$data['invoice_id']) {
+            throw new NotFoundHttpException("Request is wrong");
+        }
+
+        if ($helpers->getSetting('api_key') !== $apiKey) {
+            throw new NotFoundHttpException("API KEY missmatch");
+        }
 
         $purchase = $em->getRepository('App:Purchase')->findOneBySubscriptionId($data['invoice_id']);
 
@@ -73,7 +83,7 @@ class IpnController extends Controller {
             if ($ipnService->isValidIpn($data, $product->getCampaign()->getSecretKey())) {
                 $key = is_array($data['licenses']) ? $data['licenses'][0] : $data['licenses'];
 
-                if ($ipnService->isValidLicense($helpers->getSetting('api_key'), $key)) {
+                if ($ipnService->isValidLicense($apiKey, $key)) {
                     $verified = true;
 
                     if (isset($newPurchase)) {
