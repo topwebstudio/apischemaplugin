@@ -1,5 +1,5 @@
 ipn:
-    path:     /ipn/{apiKey}
+    path:     /ipn/{apiSecret}
     controller: App\Controller\IpnController::ipnAction
     methods:  POST|GET
  
