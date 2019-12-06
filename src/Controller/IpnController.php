@@ -64,7 +64,7 @@ class IpnController extends Controller {
         $purchase->setIsRebill($data['is_rebill']);
         $purchase->setMode($data['mode']);
 
-        if (isset($data['next_billing_date'])) {
+        if (isset($data['next_billing_date']) && $data['next_billing_date']) {
             $date = DateTime::createFromFormat('U', $data['next_billing_date']);
             $purchase->setNextBillingDate($date);
         }
@@ -72,8 +72,12 @@ class IpnController extends Controller {
         $purchase->setPaymentProcessor($data['payment_processor']);
         $purchase->setTransactionId($data['transaction_id']);
 
-        $date = DateTime::createFromFormat('U', $data['transaction_time']);
-        $purchase->setTransactionTime($date);
+
+        if (isset($data['transaction_time']) && $data['transaction_time']) {
+            $date = DateTime::createFromFormat('U', $data['transaction_time']);
+            $purchase->setTransactionTime($date);
+        }
+
 
         if (in_array($data['event'], ['refund', 'subscription-cancelled', 'subscription-trial-end', 'subscription-payment-failed'])) {
             $purchase->setIsActivePurchase(false);
