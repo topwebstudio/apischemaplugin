@@ -25,7 +25,7 @@
                             <th>API KEYS</th>
                             <th>Order Status </th>
                             <th>Domains </th>
-                            <th>Enabled</th>
+                        
                         </tr>
                     </thead>
                     <tbody>
@@ -53,14 +53,7 @@
                                 <td>{{ purchase.licenses }}</td>
                                 <td> {% if purchase.isActivePurchase == true %} Active {% else %} Inactive {% endif %}  </td>
                                 <td> {{ purchase.domains | length }} </td>
-                                <td>
-                                    <div class="toggles enableDisableKey">
-                                        <input  type="checkbox" name="checkbox{{ purchase.id }}" id="checkbox{{ purchase.id }}" class="ios-toggle"
-                                                {% if (purchase.enabled) == "1" %} checked {% endif %}
-                                                />
-                                        <label for="checkbox{{ purchase.id }}" class="checkbox-label" data-off="off" data-on="on"></label>
-                                    </div>
-                                </td>
+                              
                             </tr>   
                         {% endfor %}
                     </tbody>
