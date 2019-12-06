@@ -141,8 +141,7 @@ class Purchase {
      */
     private $domains;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->domains = new ArrayCollection();
     }
 
@@ -300,6 +299,20 @@ class Purchase {
         return $this->licenses;
     }
 
+    public function getLicensesCount() {
+        $licenses = $this->getLicenses();
+
+        if (is_array($licenses)) {
+            return count($licenses);
+        }
+
+        if(strlen($licenses) > 10) {
+            return 1;
+        }
+       
+        return 0;
+    }
+
     public function setLicenses($licenses): self {
         $this->licenses = $licenses;
 
@@ -347,13 +360,11 @@ class Purchase {
     /**
      * @return Collection|Domain[]
      */
-    public function getDomains(): Collection
-    {
+    public function getDomains(): Collection {
         return $this->domains;
     }
 
-    public function addDomain(Domain $domain): self
-    {
+    public function addDomain(Domain $domain): self {
         if (!$this->domains->contains($domain)) {
             $this->domains[] = $domain;
             $domain->setPurchase($this);
@@ -362,8 +373,7 @@ class Purchase {
         return $this;
     }
 
-    public function removeDomain(Domain $domain): self
-    {
+    public function removeDomain(Domain $domain): self {
         if ($this->domains->contains($domain)) {
             $this->domains->removeElement($domain);
             // set the owning side to null (unless already changed)

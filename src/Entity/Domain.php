@@ -23,20 +23,24 @@ class Domain {
      */
     private $id;
 
-
     /**
      * @var string
      *
      * @ORM\Column(name="domain", type="string", length=100)
      */
     private $domain;
-    
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $licenseKey;
+
     /**
      * @var string
      *
      * @ORM\Column(name="domain_key", type="string", length=100)
      */
-    private $domainKey;    
+    private $domainKey;
 
     /**
      * @var string
@@ -44,7 +48,7 @@ class Domain {
      * @ORM\Column(name="enabled", type="boolean", unique=false, nullable=true)
      */
     private $enabled;
-    
+
     /**
      * @var string
      *
@@ -57,9 +61,7 @@ class Domain {
      * @ORM\JoinColumn(nullable=false)
      */
     private $purchase;
-    
 
- 
     public function setDomain($domain) {
         $this->domain = $domain;
     }
@@ -67,52 +69,57 @@ class Domain {
     public function getDomain() {
         return $this->domain;
     }
-    
-    public function setDomainKey($domainKey){
+
+    public function setDomainKey($domainKey) {
         $this->domainKey = $domainKey;
     }
-    
-    public function getDomainKey(){
+
+    public function getDomainKey() {
         return $this->domainKey;
     }
-    
+
     public function setStatus($status) {
         $this->status = $status;
     }
-    
-    public function getStatus(){
+
+    public function getStatus() {
         return $this->status;
     }
-    
-    
-    public function getKey(){
+
+    public function getKey() {
         return $this->domainKey;
     }
-    
+
     public function setKey($key) {
         $this->domainKey = $key;
     }
-    
-    public function getDomains(){
+
+    public function getDomains() {
         return $this->domains;
     }
-    
-    
-    public function setDomains($domains){
+
+    public function setDomains($domains) {
         $this->domains = $domains;
     }
 
-    public function getPurchase(): ?Purchase
-    {
+    public function getPurchase(): ?Purchase {
         return $this->purchase;
     }
 
-    public function setPurchase(?Purchase $purchase): self
-    {
+    public function setPurchase(?Purchase $purchase): self {
         $this->purchase = $purchase;
 
         return $this;
     }
-    
-    
+
+    public function getLicenseKey(): ?string {
+        return $this->licenseKey;
+    }
+
+    public function setLicenseKey(string $licenseKey): self {
+        $this->licenseKey = $licenseKey;
+
+        return $this;
+    }
+
 }

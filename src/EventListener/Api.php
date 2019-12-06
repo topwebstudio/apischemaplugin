@@ -30,10 +30,19 @@ class Api {
         $purchase = $this->getPurchase($key);
 
         if ($purchase) {
-            $maxLicensedWebsites = $purchase->getProduct()->getLicensedWebsites();
-
-            if (count($purchase->getDomains()) >= $maxLicensedWebsites) {
-                return true;
+            $maxLicensedWebsites = $purchase->getProduct()->getLicensedWebsites(); // 100
+            $productLicensesIssued = $purchase->getLicensesCount(); // 3
+            // more than one license
+            if ($productLicensesIssued > 1) {
+                $licensedDomains = $this->em->getRepository('App:Domain')->findLicensedDomainsCount($key);
+                if ($licensedDomains >= $maxLicensedWebsites) {
+                    return true;
+                }
+            } else {
+                // for just one license
+                if (count($purchase->getDomains()) >= $maxLicensedWebsites) {
+                    return true;
+                }
             }
         }
 
@@ -72,6 +81,8 @@ class Api {
 
             $key = $this->container->get('helpers')->generateDomainKey($domain);
             $domain->setDomainKey($key);
+            $domain->setLicenseKey($apiKey);
+
             $domain->setEnabled(true);
 
             $purchase = $this->getPurchase($apiKey);

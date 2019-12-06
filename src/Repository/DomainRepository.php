@@ -22,13 +22,28 @@ class DomainRepository extends \Doctrine\ORM\EntityRepository {
     public function findOneByApiKeyAndDomainUrl($apiKey, $domain) {
         $this->getQb();
 
-        $this->qb->leftJoin('obj.purchase', 'p');
         $this->qb->where('obj.domain = :domain')->setParameter('domain', $domain);
-        $this->qb->andWhere('
-                    p.licenses
-                    LIKE :key')->setParameter('key', '%' . $apiKey . '%');
+        $this->qb->andWhere('obj.licenseKey = :licenseKey')->setParameter('licenseKey', $apiKey);
 
         return $this->getSingleResult();
+    }
+
+    public function findLicensedDomainsCount($key) {
+        $repository = $this->getEntityManager()->getRepository('App:Domain');
+        $this->qb = $repository->createQueryBuilder('obj')->select('COUNT(obj.id) as counter');
+
+        $this->qb->where("obj.licenseKey = :key")->setParameter('key', $key);
+
+
+        $query = $this->qb->getQuery();
+
+        try {
+            $result = $query->getSingleScalarResult();
+        } catch (\Doctrine\Orm\NoResultException $e) {
+            $result = 0;
+        }
+
+        return $result;
     }
 
     public function findOtherApiKeyDomain($apiKey, $domain) {
