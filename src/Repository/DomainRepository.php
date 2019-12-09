@@ -28,12 +28,12 @@ class DomainRepository extends \Doctrine\ORM\EntityRepository {
         return $this->getSingleResult();
     }
 
-    public function findLicensedDomainsCount($key) {
+    public function findLicensedDomainsCount($key, $domainToExclude) {
         $repository = $this->getEntityManager()->getRepository('App:Domain');
         $this->qb = $repository->createQueryBuilder('obj')->select('COUNT(obj.id) as counter');
 
         $this->qb->where("obj.licenseKey = :key")->setParameter('key', $key);
-
+        $this->qb->andWhere('obj.domain != :domain')->setParameter('domain', $domainToExclude);
 
         $query = $this->qb->getQuery();
 

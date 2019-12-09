@@ -129,6 +129,7 @@ define(['jquery'], function ($) {
 //        });
 
         $('.deleteDomain').click(function () {
+         
             $('#confirm-delete-domain').data('id', $(this).parents('tr').data('id')).data('url', $(this).data('url')).modal();
         });
 

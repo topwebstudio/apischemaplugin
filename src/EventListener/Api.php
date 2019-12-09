@@ -34,7 +34,9 @@ class Api {
             $productLicensesIssued = $purchase->getLicensesCount(); // 3
             // more than one license
             if ($productLicensesIssued > 1) {
-                $licensedDomains = $this->em->getRepository('App:Domain')->findLicensedDomainsCount($key);
+                $domainToExclude = $this->helpers->getDomain();
+                
+                $licensedDomains = $this->em->getRepository('App:Domain')->findLicensedDomainsCount($key, $domainToExclude);
                 if ($licensedDomains >= $maxLicensedWebsites) {
                     return true;
                 }

@@ -9,6 +9,8 @@ require('./css/template.css');
 require('./css/validationEngine.jquery.css');
 
 
+import 'bootstrap'
+
 import 'ace-builds';
 import 'ace-builds/webpack-resolver';
 
