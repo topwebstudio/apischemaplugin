@@ -25,9 +25,11 @@ class PurchaseRepository extends \Doctrine\ORM\EntityRepository {
 
     public function getActivePurchaseByApiKey($key) {
         $this->getQb();
-
+  
         $this->qb->where('obj.licenses LIKE :key')->setParameter('key', '%' . $key . '%');
-
+        
+        // ->andWhere(':licenses MEMBER OF p.subscriptions')  @todo.......
+        
         $this->qb->andWhere("obj.enabled = 1");
         $this->qb->andWhere("obj.isActivePurchase = 1");
 

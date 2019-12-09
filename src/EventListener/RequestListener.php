@@ -16,8 +16,8 @@ class RequestListener {
 
     public function __construct(ContainerInterface $container) {
         $this->container = $container;
-        $this->cache = new FilesystemAdapter($this->container->get('kernel')->getEnvironment(), 60);
-    }
+        $this->cache = new FilesystemAdapter($this->container->get('kernel')->getEnvironment(), 1); // @todo 60
+    }  
 
     public function onKernelRequest(RequestEvent $event) {
         if ($event->isMasterRequest()) {

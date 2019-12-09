@@ -31,20 +31,11 @@ class Api {
 
         if ($purchase) {
             $maxLicensedWebsites = $purchase->getProduct()->getLicensedWebsites(); // 100
-            $productLicensesIssued = $purchase->getLicensesCount(); // 3
-            // more than one license
-            if ($productLicensesIssued > 1) {
-                $domainToExclude = $this->helpers->getDomain();
-                
-                $licensedDomains = $this->em->getRepository('App:Domain')->findLicensedDomainsCount($key, $domainToExclude);
-                if ($licensedDomains >= $maxLicensedWebsites) {
-                    return true;
-                }
-            } else {
-                // for just one license
-                if (count($purchase->getDomains()) >= $maxLicensedWebsites) {
-                    return true;
-                }
+            $domainToExclude = $this->helpers->getDomain();
+
+            $licensedDomains = $this->em->getRepository('App:Domain')->findLicensedDomainsCount($key, $domainToExclude);
+            if ($licensedDomains >= $maxLicensedWebsites) {
+                return true;
             }
         }
 
