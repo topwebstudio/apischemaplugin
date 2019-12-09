@@ -20,12 +20,11 @@
                         <tr>
                             <th>#</th>
                             <th>Product</th>
-                            <th>Campaign</th>
                             <th>Transaction #</th>
                             <th>API KEYS</th>
                             <th>Order Status </th>
                             <th>Domains </th>
-                        
+
                         </tr>
                     </thead>
                     <tbody>
@@ -34,26 +33,28 @@
                             <tr {% if purchase.isActive == false %} class="inactive" {% endif %} data-id="{{ purchase.id }}">
                                 <td> {{ purchase.id }}</td>
                                 <td> {{ purchase.product.productName }} 
+
+                                    <div>
+                                        Campaign 
+
+<span title="Campaign #{{ purchase.product.campaign.campaignId }}">{{ purchase.product.campaign.campaignName }} </span>
+                                    </div>
                                     <div>
                                         <small> {{ purchase.date | date }} </small>
                                     </div>
                                     <div>
-                                         <small> {{ purchase.buyerFirstName }} {{ purchase.buyerLastName }} </small>
+                                        <small> {{ purchase.buyerFirstName }} {{ purchase.buyerLastName }} </small>
                                     </div>
                                 </td>
 
-
-
-                                <td>
-                                    <span title="Campaign #{{ purchase.product.campaign.campaignId }}">{{ purchase.product.campaign.campaignName }} </span>
-                                </td> 
+                           
                                 <td>
                                     {{ purchase.transactionId }} 
                                 </td>
-                                <td>{{ purchase.licenses }}</td>
+                                <td>{{ purchase.licenses | licenses  }}</td>
                                 <td> {% if purchase.isActivePurchase == true %} Active {% else %} Inactive {% endif %}  </td>
                                 <td> {{ purchase.domains | length }} </td>
-                              
+
                             </tr>   
                         {% endfor %}
                     </tbody>

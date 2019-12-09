@@ -4,6 +4,7 @@ namespace App\Twig;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Twig\Environment;
 
 class Extensions extends \Twig_Extension {
 
@@ -33,6 +34,12 @@ class Extensions extends \Twig_Extension {
         );
     }
 
+    public function getFilters() {
+        return array(
+            new \Twig_SimpleFilter('licenses', [$this, 'licenses'], ['needs_environment' => true, 'is_safe' => ['html']]),
+        );
+    }
+
     public function jsonEncode($array) {
         return json_encode($array, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
@@ -47,6 +54,24 @@ class Extensions extends \Twig_Extension {
 
     public function setting($key) {
         return $this->container->get('helpers')->getSetting($key);
+    }
+
+    public function licenses(Environment $twig, $licenses) {
+
+        $allLicenses= false;
+        
+        if ($licenses) {
+            $licenses = explode(', ', $licenses);
+
+            if (count($licenses) >= 3) {
+                $allLicenses = $licenses;
+                $licenses = array_slice($licenses, 0, 3);
+                
+                
+            }
+
+            return $twig->render('blocks/licenses.html.twig', compact('licenses', 'allLicenses'));
+        }
     }
 
 }

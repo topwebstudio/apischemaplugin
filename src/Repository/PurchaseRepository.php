@@ -26,13 +26,10 @@ class PurchaseRepository extends \Doctrine\ORM\EntityRepository {
     public function getActivePurchaseByApiKey($key) {
         $this->getQb();
 
-        $this->qb->andWhere('
-                    obj.licenses
-                    LIKE :key')->setParameter('key', '%' . $key . '%');
+        $this->qb->where('obj.licenses LIKE :key')->setParameter('key', '%' . $key . '%');
 
         $this->qb->andWhere("obj.enabled = 1");
         $this->qb->andWhere("obj.isActivePurchase = 1");
-
 
         return $this->getSingleResult();
     }

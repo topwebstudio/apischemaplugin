@@ -16,7 +16,7 @@
                             <th>Purchase Transaction #</th>
                             <th>PURCHASE KEY</th>
                             <th title="Not to be provided to the customer, for our reference only">DOMAIN KEY (INTERNAL SECRET KEY)</th>
-                            <th>STATUS </th>
+                         
                             <th>Delete </th>
                         </tr>
                     </thead>
@@ -28,15 +28,7 @@
                                  <td>{{ domain.purchase.transactionId }}</td>
                                 <td>{{ domain.purchase.licenses }}</td>
                                 <td>{{ domain.domainKey }}</td>
-                                <td>
-                                    <div class="toggles enableDisableDomain">
-                                        <input  type="checkbox" name="checkbox{{ domain.id }}" id="checkbox{{ domain.id }}" class="ios-toggle"
-                                                {% if (domain.enabled) == "1" %} checked {% endif %}
-                                                />
-                                        <label for="checkbox{{ domain.id }}" class="checkbox-label" data-off="off" data-on="on"></label>
-
-                                    </div>
-                                </td>
+                               
                                 <td>
                                     <span data-url="{{ url('delete_domain', {'id': domain.id}) }}" class="deleteDomain">
                                         Delete
