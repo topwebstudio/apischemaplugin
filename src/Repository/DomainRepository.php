@@ -22,8 +22,10 @@ class DomainRepository extends \Doctrine\ORM\EntityRepository {
     public function findOneByApiKeyAndDomainUrl($apiKey, $domain) {
         $this->getQb();
 
+        $this->qb->leftJoin('obj.license', 'l');
+
         $this->qb->where('obj.domain = :domain')->setParameter('domain', $domain);
-        $this->qb->andWhere('obj.licenseKey = :licenseKey')->setParameter('licenseKey', $apiKey);
+        $this->qb->andWhere('l.licenseKey = :licenseKey')->setParameter('licenseKey', $apiKey);
 
         return $this->getSingleResult();
     }
@@ -32,8 +34,10 @@ class DomainRepository extends \Doctrine\ORM\EntityRepository {
         $repository = $this->getEntityManager()->getRepository('App:Domain');
         $this->qb = $repository->createQueryBuilder('obj')->select('COUNT(obj.id) as counter');
 
-        $this->qb->where("obj.licenseKey = :key")->setParameter('key', $key);
-        $this->qb->andWhere('obj.domain != :domain')->setParameter('domain', $domainToExclude);
+        $this->qb->leftJoin('obj.license', 'l');
+
+        $this->qb->where('obj.domain != :domain')->setParameter('domain', $domainToExclude);
+        $this->qb->andWhere("l.licenseKey = :key")->setParameter('key', $key);
 
         $query = $this->qb->getQuery();
 
@@ -49,9 +53,10 @@ class DomainRepository extends \Doctrine\ORM\EntityRepository {
     public function findOtherApiKeyDomain($apiKey, $domain) {
         $this->getQb();
 
-        $this->qb->leftJoin('obj.purchase', 'p');
+        $this->qb->leftJoin('obj.license', 'l');
+
         $this->qb->where('obj.domain = :domain')->setParameter('domain', $domain);
-        $this->qb->andWhere('p.licenses NOT LIKE :key')->setParameter('key', '%' . $apiKey . '%');
+        $this->qb->andWhere('l.licenseKey != :key')->setParameter('key', $apiKey);
 
         return $this->getSingleResult();
     }

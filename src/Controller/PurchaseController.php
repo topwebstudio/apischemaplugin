@@ -8,6 +8,15 @@ class PurchaseController extends Controller {
         $result = $this->getEntityManager()->getRepository('App:Purchase')->findAll();
         $purchases = $this->get('knp_paginator')->paginate($result, $page, 100);
 
+//         $em = $this->getEntityManager();
+//        foreach($purchases as $purchase) {
+//            $em->remove($purchase);
+//        }
+//        
+//        $em->flush();
+        
+        
+        
         return $this->render('purchase/index.html.twig', array(
                     'purchases' => $purchases
         ));

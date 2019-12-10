@@ -34,6 +34,7 @@ class Api {
             $domainToExclude = $this->helpers->getDomain();
 
             $licensedDomains = $this->em->getRepository('App:Domain')->findLicensedDomainsCount($key, $domainToExclude);
+            
             if ($licensedDomains >= $maxLicensedWebsites) {
                 return true;
             }
@@ -72,9 +73,14 @@ class Api {
             $domain = new Domain();
             $domain->setDomain($domainUrl);
 
+            $license = $this->em->getRepository('App:License')->findOneByLicenseKey($apiKey);
+
+
             $key = $this->container->get('helpers')->generateDomainKey($domain);
             $domain->setDomainKey($key);
-            $domain->setLicenseKey($apiKey);
+
+            $license->addDomain($domain);
+
 
             $domain->setEnabled(true);
 
@@ -82,6 +88,7 @@ class Api {
             $purchase->addDomain($domain);
 
             $this->em->persist($purchase);
+            $this->em->persist($license);
 
             $this->em->persist($domain);
             $this->em->flush();

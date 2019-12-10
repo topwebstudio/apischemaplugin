@@ -51,7 +51,7 @@
                                 <td>
                                     {{ purchase.transactionId }} 
                                 </td>
-                                <td>{{ purchase.licenses | licenses  }}</td>
+                                <td> {{ purchase.licenses | licenses }}  </td>
                                 <td> {% if purchase.isActivePurchase == true %} Active {% else %} Inactive {% endif %}  </td>
                                 <td> {{ purchase.domains | length }} </td>
 

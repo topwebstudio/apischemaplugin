@@ -58,16 +58,16 @@ class Extensions extends \Twig_Extension {
 
     public function licenses(Environment $twig, $licenses) {
 
-        $allLicenses= false;
-        
-        if ($licenses) {
-            $licenses = explode(', ', $licenses);
+        $allLicenses = [];
 
+        if ($licenses) {
             if (count($licenses) >= 3) {
-                $allLicenses = $licenses;
-                $licenses = array_slice($licenses, 0, 3);
-                
-                
+
+                foreach ($licenses as $license) {
+                    $allLicenses[] = $license->getLicenseKey();
+                }
+
+                $licenses = $licenses->slice(0, 3);
             }
 
             return $twig->render('blocks/licenses.html.twig', compact('licenses', 'allLicenses'));

@@ -12,11 +12,9 @@
                  <table class="table table-hover table-striped">
                     <thead>
                         <tr>
-                            <th>DOMAIN</th>
+                            <th>Domain</th>
                             <th>Purchase Transaction #</th>
-                            <th>PURCHASE KEY</th>
-                            <th>DOMAIN KEY</th>
-                         
+                            <th>License Key</th>
                             <th>Delete </th>
                         </tr>
                     </thead>
@@ -25,9 +23,8 @@
                             
                             <tr data-id="{{ domain.id }}" {% if domain.enabled == false %} class="inactive" {% endif %}>
                                 <td>{{ domain.domain }}</td>
-                                 <td>{{ domain.purchase.transactionId }}</td>
-                                <td>{{ domain.purchase.licenses | licenses }}</td>
-                                <td>{{ domain.licenseKey }}</td>
+                                <td>{{ domain.purchase.transactionId }}</td>
+                                <td> {{ domain.license.licenseKey  }}</td>
                                 <td>
                                     <span data-url="{{ url('delete_domain', {'id': domain.id}) }}" class="deleteDomain">
                                         Delete

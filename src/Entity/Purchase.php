@@ -120,12 +120,7 @@ class Purchase {
      * @ORM\Column(type="string", length=255)
      */
     private $verificationCode;
-
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $licenses = [];
-
+ 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
@@ -141,8 +136,14 @@ class Purchase {
      */
     private $domains;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\License", mappedBy="purchase")
+     */
+    private $licenses;
+
     public function __construct() {
         $this->domains = new ArrayCollection();
+        $this->licenses = new ArrayCollection();
     }
 
     public function getBuyerEmail(): ?string {
@@ -295,29 +296,29 @@ class Purchase {
         return $this;
     }
 
-    public function getLicenses() {
-        return $this->licenses;
-    }
-
-    public function getLicensesCount() {
-        $licenses = $this->getLicenses();
-
-        if (is_array($licenses)) {
-            return count($licenses);
-        }
-
-        if(strlen($licenses) > 10) {
-            return 1;
-        }
-       
-        return 0;
-    }
-
-    public function setLicenses($licenses): self {
-        $this->licenses = $licenses;
-
-        return $this;
-    }
+//    public function getLicenses() {
+//        return $this->licenses;
+//    }
+//
+//    public function getLicensesCount() {
+//        $licenses = $this->getLicenses();
+//
+//        if (is_array($licenses)) {
+//            return count($licenses);
+//        }
+//
+//        if(strlen($licenses) > 10) {
+//            return 1;
+//        }
+//       
+//        return 0;
+//    }
+//
+//    public function setLicenses($licenses): self {
+//        $this->licenses = $licenses;
+//
+//        return $this;
+//    }
 
     public function getSubscriptionId(): ?string {
         return $this->subscriptionId;
@@ -379,6 +380,37 @@ class Purchase {
             // set the owning side to null (unless already changed)
             if ($domain->getPurchase() === $this) {
                 $domain->setPurchase(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|License[]
+     */
+    public function getLicenses(): Collection
+    {
+        return $this->licenses;
+    }
+
+    public function addLicense(License $license): self
+    {
+        if (!$this->licenses->contains($license)) {
+            $this->licenses[] = $license;
+            $license->setPurchase($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLicense(License $license): self
+    {
+        if ($this->licenses->contains($license)) {
+            $this->licenses->removeElement($license);
+            // set the owning side to null (unless already changed)
+            if ($license->getPurchase() === $this) {
+                $license->setPurchase(null);
             }
         }
 

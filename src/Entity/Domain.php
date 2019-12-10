@@ -31,11 +31,6 @@ class Domain {
     private $domain;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $licenseKey;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="domain_key", type="string", length=100)
@@ -61,6 +56,12 @@ class Domain {
      * @ORM\JoinColumn(nullable=false)
      */
     private $purchase;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\License", inversedBy="domains")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $license;
 
     public function setDomain($domain) {
         $this->domain = $domain;
@@ -112,12 +113,14 @@ class Domain {
         return $this;
     }
 
-    public function getLicenseKey(): ?string {
-        return $this->licenseKey;
+    public function getLicense(): ?License
+    {
+        return $this->license;
     }
 
-    public function setLicenseKey(string $licenseKey): self {
-        $this->licenseKey = $licenseKey;
+    public function setLicense(?License $license): self
+    {
+        $this->license = $license;
 
         return $this;
     }
