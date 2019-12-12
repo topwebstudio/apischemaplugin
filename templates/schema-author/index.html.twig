@@ -17,6 +17,7 @@
                             <th>Email</th>
                             <th>About</th>
                             <th>Submitted Schemas</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -27,6 +28,7 @@
                                 <td>{{ schemaAuthor.email }}</td>
                                 <td>{{ schemaAuthor.content }}</td>
                                 <td style="text-align: center">{{ schemaAuthor.schemaBuilders | length }}</td>
+                                <td><a href="{{ path('schema_author_edit', {'id': schemaAuthor.id }) }}">edit</a> </td>
                             </tr>
                         {% endfor %}
                     </tbody>

@@ -27,7 +27,7 @@ class SchemaBuilderApiController extends Controller {
         }
 
         $items = $this->getEntityManager()->getRepository('App:SchemaBuilder')->fetch($parameters);
-        $paginated =  $this->get('knp_paginator')->paginate($items, $parameters['page'], $parameters['numItemsPerPage']);
+        $paginated = $this->get('knp_paginator')->paginate($items, $parameters['page'], $parameters['numItemsPerPage']);
 
         $response['itemsData'] = [];
         foreach ($paginated->getItems() as $item) {
@@ -40,10 +40,10 @@ class SchemaBuilderApiController extends Controller {
             $i['schema'] = $item->getJsonSchemasArray();
             $i['date'] = $item->getDate()->format('Y-m-d');
             $i['tags'] = $item->getTags();
+            $i['author_nickname'] = $item->getAuthor()->getNickname();
             $i['author_name'] = $item->getAuthor()->getName();
             $i['author_id'] = $item->getAuthor()->getId();
             $i['plugin_version_required'] = $item->getPluginVersion() ? $item->getPluginVersion()->getVersion() : false;
-
 
             array_push($response['itemsData'], $i);
         }
@@ -51,9 +51,13 @@ class SchemaBuilderApiController extends Controller {
         if (isset($parameters['filterByAuthor']) && $parameters['filterByAuthor']) {
             $author = $this->getEntityManager()->getRepository('App:SchemaAuthor')->find($parameters['filterByAuthor']);
 
+
             if ($author) {
+                $avatar = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($author->getEmail()))) . "&s=40";
+                $parameters['filterAuthorNickname'] = $author->getNickname();
                 $parameters['filterAuthorName'] = $author->getName();
                 $parameters['filterAuthorContent'] = $author->getContent();
+                $parameters['filterAuthorAvatar'] = $avatar;
             }
         }
 
@@ -108,11 +112,11 @@ class SchemaBuilderApiController extends Controller {
         $response = ['status' => 'error', 'info' => ['Failed to register']];
         $parameters = $request->getMethod() === 'POST' ? $request->get('data') : [];
         $em = $this->getEntityManager();
-        if ($parameters['email'] && $parameters['password'] && $parameters['name']) {
+        if ($parameters['email'] && $parameters['password'] && $parameters['nickname']) {
             $error = false;
-            $userByName = $em->getRepository('App:SchemaAuthor')->findOneBy(
+            $userByNiickname = $em->getRepository('App:SchemaAuthor')->findOneBy(
                     [
-                        'name' => $parameters['name']
+                        'nickname' => $parameters['nickname']
                     ]
             );
 
@@ -122,9 +126,9 @@ class SchemaBuilderApiController extends Controller {
                     ]
             );
 
-            if ($userByName) {
+            if ($userByNiickname) {
                 $error = true;
-                $response['info'] = 'This name is already used';
+                $response['info'] = 'This nickname is already used';
             }
 
             if ($userByEmail) {
@@ -133,10 +137,11 @@ class SchemaBuilderApiController extends Controller {
             }
 
             if (!$error) {
-
                 $author = new SchemaAuthor();
                 $author->setUid(substr(md5(time()), 0, 12));
+                $author->setNickname($parameters['nickname']);
                 $author->setName($parameters['name']);
+
                 $author->setEmail($parameters['email']);
                 $author->setPassword($parameters['password']);
 
@@ -159,6 +164,7 @@ class SchemaBuilderApiController extends Controller {
 
 
                 $response['uid'] = $author->getUid();
+                $response['nickname'] = $author->getNickname();
                 $response['name'] = $author->getName();
                 $response['email'] = $author->getEmail();
 
@@ -186,6 +192,7 @@ class SchemaBuilderApiController extends Controller {
             if ($user) {
                 $response['status'] = 'success';
                 $response['uid'] = $user->getUid();
+                $response['nickname'] = $user->getNickname();
                 $response['name'] = $user->getName();
                 $response['email'] = $user->getEmail();
                 $response['content'] = $user->getContent();
@@ -212,16 +219,17 @@ class SchemaBuilderApiController extends Controller {
 
             $userByNameEmailAndDifferentUid = null;
 
-            if ($parameters['name'] && $parameters['email']) {
+            if ($parameters['nickname'] && $parameters['email']) {
 
-                $userByNameEmailAndDifferentUid = $em->getRepository('App:SchemaAuthor')->getUserByNameEmailAndDifferentUid(
-                        $parameters['uid'], $parameters['name'], $parameters['email']
+                $userByNameEmailAndDifferentUid = $em->getRepository('App:SchemaAuthor')->getUserByNicknameEmailAndDifferentUid(
+                        $parameters['uid'], $parameters['nickname'], $parameters['email']
                 );
 
                 if ($userByNameEmailAndDifferentUid) {
-                    $response['info'] = 'Email or name already exists';
+                    $response['info'] = 'Email or nickname already exists';
                 } else if ($user) {
 
+                    $user->setNickname($parameters['nickname']);
                     $user->setName($parameters['name']);
                     $user->setEmail($parameters['email']);
                     $user->setContent($parameters['content']);
@@ -235,6 +243,7 @@ class SchemaBuilderApiController extends Controller {
 
                     $response['status'] = 'success';
 
+                    $response['nickname'] = $user->getNickname();
                     $response['name'] = $user->getName();
                     $response['email'] = $user->getEmail();
                     $response['content'] = $user->getContent();

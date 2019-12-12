@@ -296,29 +296,6 @@ class Purchase {
         return $this;
     }
 
-//    public function getLicenses() {
-//        return $this->licenses;
-//    }
-//
-//    public function getLicensesCount() {
-//        $licenses = $this->getLicenses();
-//
-//        if (is_array($licenses)) {
-//            return count($licenses);
-//        }
-//
-//        if(strlen($licenses) > 10) {
-//            return 1;
-//        }
-//       
-//        return 0;
-//    }
-//
-//    public function setLicenses($licenses): self {
-//        $this->licenses = $licenses;
-//
-//        return $this;
-//    }
 
     public function getSubscriptionId(): ?string {
         return $this->subscriptionId;

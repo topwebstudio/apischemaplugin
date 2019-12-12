@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class License {
 
+    use EntityTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -33,6 +35,13 @@ class License {
      * @ORM\OneToMany(targetEntity="App\Entity\Domain", mappedBy="license")
      */
     private $domains;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="enabled", type="boolean", unique=false, nullable=true)
+     */
+    private $enabled;
 
     public function __construct() {
         $this->domains = new ArrayCollection();

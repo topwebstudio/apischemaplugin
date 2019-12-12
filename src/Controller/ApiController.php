@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Services\Helpers;
 
 class ApiController extends Controller {
@@ -28,6 +29,10 @@ class ApiController extends Controller {
 
         if ($latest) {
             $url = $this->getDownloadURL($request);
+
+            if ($request->attributes->get('apiKeyError')) {
+                $url = '';
+            }
 
             // i'm using it behind proxy..
             if ($this->getParameter('router.request_context.scheme') === 'https') {
@@ -55,6 +60,13 @@ class ApiController extends Controller {
                     "high" => $api['plugin_banner_high'],
                 ),
             );
+
+            if ($request->attributes->get('apiKeyError')) {
+                $key = $this->getRequestParameter('api_key', $request);
+                
+                $response['key'] = serialize(array('key' => $key, 'flag' => false));
+            }
+
 
             return $this->returnJsonResponse($response);
         }
@@ -118,16 +130,16 @@ class ApiController extends Controller {
 
     private function getDownloadURL($request) {
         $latest = $this->getEntityManager()->getRepository('App:PluginVersion')->getLatestVersion();
-        return $this->generateUrl(
-                        'api_download', array(
-                    'version' => $latest->getVersion(), // the new version!
-                    'name' => $this->getRequestParameter('name', $request),
-                    'path' => $this->getRequestParameter('path', $request),
-                    'domain' => $this->getRequestParameter('domain', $request),
-                    'current_version' => $this->getRequestParameter('version', $request),
-                    'api_key' => $this->getRequestParameter('api_key', $request),
-                        ), \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL);
-        ;
+        $settings = array(
+            'version' => $latest->getVersion(), // the new version!
+            'name' => $this->getRequestParameter('name', $request),
+            'path' => $this->getRequestParameter('path', $request),
+            'domain' => $this->getRequestParameter('domain', $request),
+            'current_version' => $this->getRequestParameter('version', $request),
+            'api_key' => $this->getRequestParameter('api_key', $request),
+        );
+
+        return $this->generateUrl('api_download', $settings, UrlGeneratorInterface::ABSOLUTE_URL);
     }
 
 }

@@ -33,10 +33,10 @@ class SchemaAuthor {
 
     /**
      * @var string attribute
-     * @Assert\NotBlank(message = "Name should not be blank")
-     * @ORM\Column(name="title", type="string", length=255, unique=true, nullable=false)
+     * @Assert\NotBlank(message = "Nickname should not be blank")
+     * @ORM\Column(name="nickname", type="string", length=255, unique=true, nullable=false)
      */
-    private $name;
+    private $nickname;
 
     /**
      * @var string attribute
@@ -68,11 +68,15 @@ class SchemaAuthor {
      */
     protected $schemaBuilders;
 
-    public function getSchemaBuilders(){
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $name;
+
+    public function getSchemaBuilders() {
         return $this->schemaBuilders;
     }
-    
-    
+
     public function addSchemaBuilder($schemaBuilder) {
         if (!$this->schemaBuilders->contains($schemaBuilder)) {
             $this->schemaBuilders[] = $schemaBuilder;
@@ -80,12 +84,12 @@ class SchemaAuthor {
         }
     }
 
-    public function setName($name) {
-        $this->name = $name;
+    public function setNickname($nickname) {
+        $this->nickname = $nickname;
     }
 
-    public function getName() {
-        return $this->name;
+    public function getNickname() {
+        return $this->nickname;
     }
 
     public function setEmail($email) {
@@ -106,6 +110,22 @@ class SchemaAuthor {
 
     public function getUid() {
         return $this->uid;
+    }
+
+    public function getName(): ?string {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function setContent($content) {
+        $this->content = strip_tags($content);
+
+        return $this;
     }
 
 }

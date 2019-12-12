@@ -23,7 +23,7 @@ class Menu {
             ['product', 'Products', 'product_index', 'pe-7s-plug'],
             ['campaign', 'Campaigns', 'campaign_index', 'pe-7s-plug'],
             ['schema', 'Schema Catalog', 'schemabuilder_index', 'pe-7s-plug'],
-            ['schema-author', 'Schema Authors', 'schemaauthor_index', 'pe-7s-plug'],
+            ['schema-author', 'Schema Authors', 'schema_author_index', 'pe-7s-plug'],
             ['plugin-version', 'Plugin Versions', 'plugin-version_index', 'pe-7s-plug'],
             ['setting', 'Settings', 'setting_index', 'pe-7s-plug'],
         ];

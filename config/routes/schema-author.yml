@@ -1,4 +1,4 @@
-schemaauthor_index:
+schema_author_index:
     path:     /admin/schema-author/{page}
     controller: App\Controller\SchemaAuthorController::indexAction
     methods:  GET
@@ -6,3 +6,8 @@ schemaauthor_index:
         page: '\d+'
     defaults:
         page: 1
+        
+schema_author_edit:
+    path:     /admin/schema-author/{id}/edit
+    controller: App\Controller\SchemaAuthorController::editAction
+    methods:  [GET, POST]

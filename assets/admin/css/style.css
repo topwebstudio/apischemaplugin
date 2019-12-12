@@ -102,3 +102,10 @@ input[type=checkbox] {
 }
   
 
+.view-all-licenses {
+        font-weight: bold;
+    color: #8686da;
+    cursor: pointer;
+}
+
+ 

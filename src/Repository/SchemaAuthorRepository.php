@@ -8,17 +8,17 @@ class SchemaAuthorRepository extends \Doctrine\ORM\EntityRepository {
 
     public $entity = 'SchemaAuthor';
 
-    public function getUserByNameEmailAndDifferentUid($uid, $name, $email) {
+    public function getUserByNicknameEmailAndDifferentUid($uid, $nickname, $email) {
         $this->getQb();
 
         $this->qb->where("obj.uid != :uid");
 
         $this->qb->andWhere($this->qb->expr()->orX(
-                        'obj.name = :name', 'obj.email = :email'
+                        'obj.nickname = :nickname', 'obj.email = :email'
         ));
 
         $this->qb->setParameter('uid', $uid);
-        $this->qb->setParameter('name', $name);
+        $this->qb->setParameter('nickname', $nickname);
         $this->qb->setParameter('email', $email);
 
         return $this->getSingleResult();

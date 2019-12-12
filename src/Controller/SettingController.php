@@ -5,7 +5,6 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Setting;
 
-
 class SettingController extends Controller {
 
     public function indexAction($page) {

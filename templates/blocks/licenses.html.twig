@@ -1,4 +1,4 @@
-<div style="font-size:12px;">
+<div style="font-size:13px;">
 
     {%  for license in licenses %}
         {{ license.licenseKey }}{%  if loop.last == false %}, <br /> {% endif %}
@@ -6,7 +6,7 @@
 
     {% if allLicenses %} 
         <div>
-            <span data-licenses="{{ allLicenses |join(', ') }}">All licenses({{ allLicenses|length }}) </span>
+            <span class="view-all-licenses" data-licenses="{{ allLicenses |join(', ') }}">All licenses({{ allLicenses|length }}) </span>
         </div> 
     {%  endif %}
 

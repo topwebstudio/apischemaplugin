@@ -16,17 +16,12 @@ class RequestListener {
 
     public function __construct(ContainerInterface $container) {
         $this->container = $container;
-        $this->cache = new FilesystemAdapter($this->container->get('kernel')->getEnvironment(), 1); // @todo 60
-    }  
+        $this->cache = new FilesystemAdapter($this->container->get('kernel')->getEnvironment(), 60 * 3);
+    }
 
     public function onKernelRequest(RequestEvent $event) {
         if ($event->isMasterRequest()) {
             $this->request = $this->container->get('request_stack')->getMasterRequest();
-
-            // always allow new version checks to avoid errors
-            if ($this->request->attributes->get('_route') === 'api_get_latest_plugin_version') {
-                return true;
-            }
 
             // require api_ url to continue with the checks
             if (strpos($this->request->attributes->get('_route'), 'api_') === false) {
@@ -36,7 +31,7 @@ class RequestListener {
             $key = md5(serialize([$this->getRequestParameter('path'), $this->getRequestParameter('domain'), $this->getRequestParameter('api_key')]));
             $api_key_databases_cache = $this->cache->getItem('api_valid_request_check_' . $key);
 
-            if ($api_key_databases_cache->isHit() && $api_key_databases_cache->get() === true) {
+            if ($api_key_databases_cache->isHit() && $api_key_databases_cache->get() === true && $this->container->getParameter('kernel.environment') !== 'dev') {
                 return true;
             }
 
@@ -47,9 +42,18 @@ class RequestListener {
             $this->domainInstalledWithOtherApiKey();
 
             if ($this->error) {
+
+                // always allow new version checks to avoid errors
+                if ($this->request->attributes->get('_route') === 'api_get_latest_plugin_version') {
+                    $this->request->attributes->set('apiKeyError', 'true');
+
+                    return true;
+                }
+
                 $array = array(
                     'status' => 'error',
-                    'data' => $this->error
+                    'data' => $this->error,
+                    'note' => array('key' => $this->getRequestParameter('api_key'), 'flag' => false)
                 );
 
                 $response = new Response(json_encode($array));

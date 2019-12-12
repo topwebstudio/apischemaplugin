@@ -20,7 +20,11 @@ class Api {
 
     public function validateApiKey($key) {
         if ($this->getPurchase($key)) {
-            return true;
+            $license = $this->em->getRepository('App:License')->findOneByLicenseKey($key);
+
+            if ($license->getEnabled()) {
+                return true;
+            }
         }
 
         return false;
@@ -34,7 +38,7 @@ class Api {
             $domainToExclude = $this->helpers->getDomain();
 
             $licensedDomains = $this->em->getRepository('App:Domain')->findLicensedDomainsCount($key, $domainToExclude);
-            
+
             if ($licensedDomains >= $maxLicensedWebsites) {
                 return true;
             }

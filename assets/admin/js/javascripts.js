@@ -7,6 +7,15 @@ define(['jquery'], function ($) {
     var currentyActiveJsonSchema = null;
 
     $(document).ready(function () {
+          $('.view-all-licenses').click(function () {
+              var licenses = $(this).data('licenses');
+              
+             $('#licensesModal').modal('show');
+             $('#licensesModal .modal-body').html(licenses);
+        });
+        
+        
+        
 
 //
 //        $('#confirm-delete').on('show.bs.modal', function () {
