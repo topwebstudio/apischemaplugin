@@ -1,6 +1,15 @@
+cd /var/www/schemaplugin.net/public_html/api
+git pull https://github.com/topwebstudio/apischemaplugin.git
+
+php bin/console cache:clear --env=prod
+php bin/console doctrine:schema:update --force --env=prod
+php bin/console cache:clear --env=prod
+./node_modules/.bin/encore prod
+php bin/console cache:clear --env=prod
+
 npm install --save-dev webpack
 
-git pull https://github.com/topwebstudio/apischemaplugin.git
+
 
 php bin/console doctrine:schema:drop --force && php bin/console doctrine:schema:create && php bin/console doctrine:fixtures:load  
 

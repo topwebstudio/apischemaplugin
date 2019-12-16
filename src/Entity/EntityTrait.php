@@ -190,7 +190,8 @@ trait EntityTrait {
     }
 
     public function setVersion($version) {
-        $this->version = number_format((float) $version, 1, '.', '');
+        $this->version = number_format((float) $version, 2, '.', '');
+        
         return $this;
     }
 
