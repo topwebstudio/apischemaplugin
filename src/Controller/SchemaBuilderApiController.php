@@ -53,7 +53,7 @@ class SchemaBuilderApiController extends Controller {
 
 
             if ($author) {
-                $avatar = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($author->getEmail()))) . "&s=40";
+                $avatar = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($author->getEmail()))) . "&s=60";
                 $parameters['filterAuthorNickname'] = $author->getNickname();
                 $parameters['filterAuthorName'] = $author->getName();
                 $parameters['filterAuthorContent'] = $author->getContent();
