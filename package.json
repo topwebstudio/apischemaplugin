@@ -9,7 +9,7 @@
         "jquery": "^3.4.0",
         "jquery.spinner": "*",
         "js-cookie": "*",
-        "node-sass": "^4.13.0",
+        "node-sass": "^8.0.0",
         "popper.js": "*",
         "sass-loader": "*",
         "simplebar": "*",
